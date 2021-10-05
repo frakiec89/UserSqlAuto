@@ -1,18 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using UserSqlAuto.BL;
 
 namespace UserSqlAuto
 {
@@ -22,17 +12,39 @@ namespace UserSqlAuto
     public partial class MainWindow : Window
     {
 
+        ISQL _iSQL; 
+
         private List<User> users = new List<User>();
 
         public MainWindow()
         {
             InitializeComponent();
-            tbAdress.Text = "192.168.10.134";
-            tbLogin.Text = "stud";
-            tbPassword.Text = "stud1";
+            this.Loaded += MainWindow_Loaded;
+            
+        }
 
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            rbMS.IsChecked = true;
             cbCount.ItemsSource = RunCB(30);
         }
+
+        private ISQL GetSQL()
+        {
+            if (rbMS.IsChecked==true && rbMySql.IsChecked==false)
+            {
+                return new UserSqlAuto.BL.ServiceSQL(); // todo Зависимость
+            }
+
+            if (rbMS.IsChecked == false && rbMySql.IsChecked == true)
+            {
+                return new UserSqlAuto.BL.MySqlServer(); // todo Зависимость
+            }
+
+            throw new Exception("Укажите вид сервера");
+           
+        }
+
         private static List<int> RunCB(int  count)
         {
             List<int> vs = new List<int>();
@@ -45,6 +57,15 @@ namespace UserSqlAuto
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                _iSQL = GetSQL();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             if (users.Count >0)
             {
                 foreach (var item in users)
@@ -57,13 +78,13 @@ namespace UserSqlAuto
 
         private void AddUserDB(User user)
         {
-            string conectionStrint = $"Server={tbAdress.Text};Database=master;User Id={tbLogin.Text};Password={tbPassword.Text}";
+            string conectionStrint = _iSQL.GetSqlconectionStrint(tbAdress.Text, tbLogin.Text, tbPassword.Text);
 
             string name = user.Name;
             try
             {
-                ServiceSQL.CreateDateBase(name, conectionStrint);
-                ServiceSQL.CreateUser(name, user.Password, conectionStrint);
+                _iSQL.CreateDateBase(name, conectionStrint);
+                _iSQL.CreateUser(name, user.Password, conectionStrint);
             }
             catch (Exception ex)
             {
@@ -95,6 +116,27 @@ namespace UserSqlAuto
                 users = USerGeneretic.GetUsers(openFileDialog.FileName);
                 dtUSer.ItemsSource = users;
             }
+        }
+
+        private void rbMS_Checked(object sender, RoutedEventArgs e)
+        {
+            if (rbMS.IsChecked == true)
+            {
+                tbAdress.Text = "192.168.10.134";
+                tbLogin.Text = "stud";
+                tbPassword.Text = "stud";
+            }
+        }
+
+        private void rbMySql_Checked(object sender, RoutedEventArgs e)
+        {
+            if(rbMySql.IsChecked==true)
+            {
+                tbAdress.Text = "192.168.10.134";
+                tbLogin.Text = "root";
+                tbPassword.Text = "Frakiec89";
+            }
+           
         }
     }
 }

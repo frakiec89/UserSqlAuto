@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserSqlAuto", "UserSqlAuto\UserSqlAuto.csproj", "{678C14C5-260D-4B92-A5F0-6112C28DE3AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserSqlAuto", "UserSqlAuto\UserSqlAuto.csproj", "{678C14C5-260D-4B92-A5F0-6112C28DE3AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserSqlAuto.BL", "UserSqlAuto.BL\UserSqlAuto.BL.csproj", "{D2B81111-8F98-49A1-8331-8A7DE6EE1F36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{678C14C5-260D-4B92-A5F0-6112C28DE3AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{678C14C5-260D-4B92-A5F0-6112C28DE3AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{678C14C5-260D-4B92-A5F0-6112C28DE3AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2B81111-8F98-49A1-8331-8A7DE6EE1F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2B81111-8F98-49A1-8331-8A7DE6EE1F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2B81111-8F98-49A1-8331-8A7DE6EE1F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2B81111-8F98-49A1-8331-8A7DE6EE1F36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

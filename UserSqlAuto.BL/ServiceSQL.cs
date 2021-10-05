@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace UserSqlAuto
+namespace UserSqlAuto.BL
 {
-    public class ServiceSQL
+    public class ServiceSQL : ISQL
     {
         /// <summary>
         /// Передать  имя бд  и  Connection to a SQL Server instance
         /// </summary>
         /// <param name="name"></param>
         /// <param name="cs"></param>
-        internal static void CreateDateBase(string name, string cs)
+        public  void CreateDateBase(string name, string cs)
         {
             SqlConnection myConn = new SqlConnection(cs);
 
@@ -39,7 +35,7 @@ namespace UserSqlAuto
                 }
             }
         }
-        internal static void CreateUser(string name, string pasword, string cs)
+        public  void CreateUser(string name, string pasword, string cs)
         {
             SqlConnection myConn = new SqlConnection(cs);
 
@@ -70,8 +66,11 @@ namespace UserSqlAuto
                     myConn.Close();
                 }
             }
+        }
 
-            
+        public string GetSqlconectionStrint(string adress, string login, string password)
+        {
+            return $"Server={adress};Database=master;User Id={login};Password={password}";
         }
     }
 }

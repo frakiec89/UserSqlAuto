@@ -33,6 +33,10 @@
             <StackPanel Orientation="Horizontal">
                 <Label >Укажите адрес сервера</Label>
                 <TextBox x:Name="tbAdress"></TextBox>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <RadioButton Checked="rbMS_Checked" x:Name="rbMS" Margin="5" >MSSQL</RadioButton>
+                    <RadioButton Checked="rbMySql_Checked" x:Name="rbMySql" Margin="5" >MySql</RadioButton>
+                </StackPanel>
             </StackPanel>
             
             <StackPanel Orientation="Horizontal">

@@ -15,11 +15,10 @@ namespace UserSqlAuto
 
             for (int i = 0; i < count; i++)
             {
-                users.Add(new User() { Name = name + (i + 1), Password =Random( 4) });
+                users.Add(new User() { Name = name + (i + 1), Password =Random( 10) });
             }
             return users;
         }
-
         public static List<User> GetUsers(string filePath)
         {
             List<User> users = new List<User>();
@@ -48,8 +47,6 @@ namespace UserSqlAuto
             }
             return users;
         }
-
-
         public static string Random(int length)
             {
                 try
