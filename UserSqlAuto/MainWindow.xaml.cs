@@ -20,7 +20,6 @@ namespace UserSqlAuto
         {
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
-            
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -40,9 +39,7 @@ namespace UserSqlAuto
             {
                 return new UserSqlAuto.BL.MySqlServer(); // todo Зависимость
             }
-
             throw new Exception("Укажите вид сервера");
-           
         }
 
         private static List<int> RunCB(int  count)
@@ -55,6 +52,11 @@ namespace UserSqlAuto
             return vs;
         }
 
+        /// <summary>
+        /// Го в  БД
+        /// /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -75,6 +77,7 @@ namespace UserSqlAuto
                 MessageBox.Show("Операция закончена");
             }
         }
+
 
         private void AddUserDB(User user)
         {
@@ -136,7 +139,6 @@ namespace UserSqlAuto
                 tbLogin.Text = "root";
                 tbPassword.Text = "Frakiec89";
             }
-           
         }
     }
 }
