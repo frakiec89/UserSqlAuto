@@ -120,11 +120,16 @@ namespace UserSqlAuto
 
             if (openFileDialog.ShowDialog() == true)
             {
-                users = USerGeneretic.GetUsers(openFileDialog.FileName);
+                users = USerGeneretic.GetUsers(openFileDialog.FileName , Convert.ToInt32( slValue.Value));
                 dtUSer.ItemsSource = users;
             }
         }
 
+        /// <summary>
+        /// Для шаблоного вывода  на  экран
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rbMS_Checked(object sender, RoutedEventArgs e)
         {
             if (rbMS.IsChecked == true)
@@ -135,6 +140,11 @@ namespace UserSqlAuto
             }
         }
 
+        /// <summary>
+        /// Для шаблоного вывода  на  экран
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rbMySql_Checked(object sender, RoutedEventArgs e)
         {
             if(rbMySql.IsChecked==true)
@@ -145,6 +155,11 @@ namespace UserSqlAuto
             }
         }
 
+        /// <summary>
+        /// для экспорта в  txt
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btSaveUserInTXT_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -157,7 +172,10 @@ namespace UserSqlAuto
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// для экспорта в  txt
+        /// </summary>
+        /// <returns></returns>
         private string GetContent()
         {
             try
@@ -191,6 +209,10 @@ namespace UserSqlAuto
           
         }
 
+        /// <summary>
+        ///  /// для экспорта в  txt
+        /// </summary>
+        /// <returns></returns>
         private string GetPath()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();

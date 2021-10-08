@@ -19,7 +19,7 @@ namespace UserSqlAuto
             }
             return users;
         }
-        public static List<User> GetUsers(string filePath)
+        public static List<User> GetUsers(string filePath , int countSimbolPassword)
         {
             List<User> users = new List<User>();
 
@@ -43,7 +43,7 @@ namespace UserSqlAuto
 
             foreach (var item  in  lineList )
             {
-                users.Add(new User() { Name = item , Password = Random(4) });
+                users.Add(new User() { Name = item , Password = Random(countSimbolPassword) });
             }
             return users;
         }
