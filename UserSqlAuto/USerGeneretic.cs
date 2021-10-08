@@ -9,13 +9,13 @@ namespace UserSqlAuto
 {
     public  class USerGeneretic
     {
-        public static List<User> GetUsers (string name , int  count)
+        public static List<User> GetUsers (string name , int  count , int  countSimbolPassword)
         {
             List<User> users = new List<User>();
 
             for (int i = 0; i < count; i++)
             {
-                users.Add(new User() { Name = name + (i + 1), Password =Random( 10) });
+                users.Add(new User() { Name = name + (i + 1), Password =Random( countSimbolPassword) });
             }
             return users;
         }

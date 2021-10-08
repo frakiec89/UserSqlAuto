@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using UserSqlAuto.BL;
+using UserSqlAuto.Exprort;
 
 namespace UserSqlAuto
 {
@@ -26,6 +27,7 @@ namespace UserSqlAuto
         {
             rbMS.IsChecked = true;
             cbCount.ItemsSource = RunCB(30);
+            slValue.Value = 4;
         }
 
         private ISQL GetSQL()
@@ -106,7 +108,9 @@ namespace UserSqlAuto
             {
                 MessageBox.Show("Укажите кол-во пользователей"); return;
             }
-            users = USerGeneretic.GetUsers(tbStartLogin.Text , Convert.ToInt32( cbCount.SelectedItem.ToString()));
+            users = USerGeneretic.GetUsers(tbStartLogin.Text , Convert.ToInt32( cbCount.SelectedItem.ToString() ), 
+                Convert.ToInt32(slValue.Value)
+                );
             dtUSer.ItemsSource = users;
         }
 
@@ -138,6 +142,66 @@ namespace UserSqlAuto
                 tbAdress.Text = "192.168.10.134";
                 tbLogin.Text = "root";
                 tbPassword.Text = "Frakiec89";
+            }
+        }
+
+        private void btSaveUserInTXT_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                IExportToFile export = new ExportToTXT();
+                export.ExportTXT(GetPath(), GetContent());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private string GetContent()
+        {
+            try
+            {
+                string content = "";
+
+                string server ="Какой то сервер";
+                if (rbMS.IsChecked == true && rbMySql.IsChecked == false)
+                {
+                    server = "MS SQL SERVER";
+                }
+
+                if (rbMS.IsChecked == false && rbMySql.IsChecked == true)
+                {
+                    server = "MySQL SERVER";
+                }
+                foreach (var item in users)
+                {
+                    content += $"_____________{server}_____________ \n" +
+                        $"Сервер: {tbAdress.Text }\n" +
+                        $"Логин: {item.Name} \n" +
+                        $"Пароль: {item.Password} \n" +
+                        $"База данных {item.Name} \n \n";
+                }
+                return content;
+            }
+            catch
+            {
+                throw new Exception("Ошибка контента для экспорта");
+            }
+          
+        }
+
+        private string GetPath()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog()==true)
+            {
+                return saveFileDialog.FileName;
+            }
+            else
+            {
+                throw new Exception("ошибка пути к  файлу");
             }
         }
     }

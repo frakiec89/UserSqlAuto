@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UserSqlAuto.BL\UserSqlAuto.BL.csproj" />
+    <ProjectReference Include="..\UserSqlAuto.Exprort\UserSqlAuto.Exprort.csproj" />
   </ItemGroup>
 
 </Project>

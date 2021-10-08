@@ -55,33 +55,58 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label >Укажите количество учеток</Label>
+                <Label 
+                       >Укажите количество учеток</Label>
                 <ComboBox Name="cbCount" />
-                <Label >Или загрузите список из txt</Label>
-                <Button Padding="5" Margin="5" x:Name="btRun" Content="загрузить" Click="btRun_Click"/>
+                
+                <DockPanel VerticalAlignment="Stretch" Width="305" >
+                    <Label Margin="5" HorizontalContentAlignment="Left"
+                       HorizontalAlignment="Left"
+                       MinWidth="70"
+                       >Укажите длину пароля</Label>
+                    <Slider Margin="5" Padding="5"
+                            Minimum="1" Maximum="10"  Width="100"
+                            TickPlacement="Both" 
+                            TickFrequency="1" 
+                            IsSnapToTickEnabled="True"
+                            Name="slValue" />
+                    <TextBlock Margin="5" Text="{Binding ElementName=slValue,
+                        Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                </DockPanel>
+               
+                <Label MinWidth="50" >Или загрузите список из txt</Label>
+                <Button Padding="5" Margin="5" x:Name="btRun" 
+                        Content="загрузить" Click="btRun_Click"/>
             </StackPanel>
 
-            <Button x:Name="btGEnerator" 
+            <Button   x:Name="btGEnerator" 
                     Margin="10" Padding="10"
                     Click="btGEnerator_Click">Генерировать</Button>
 
-            <Button Margin="10" 
-                    Padding="10" Click="Button_Click">Добавить в бд</Button>
-            
-         
-                <DataGrid MaxHeight="300" Name="dtUSer" AutoGenerateColumns="False"
+            <Border BorderThickness="2" BorderBrush="Black">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <DataGrid Margin="20" MinHeight="100"
+                          MaxHeight="300" MinWidth="250"  Name="dtUSer" AutoGenerateColumns="False"
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
                           ScrollViewer.CanContentScroll="True"
                           >
-                    <DataGrid.Columns   >
-                        <DataGridTextColumn 
+                        <DataGrid.Columns   >
+                            <DataGridTextColumn 
                             Header="Юзер" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            
-            
+                            <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Margin="10,20,10,0" Padding="5"
+                        HorizontalAlignment="Center" VerticalAlignment="Top"
+                        x:Name="btSaveUserInTXT" Click="btSaveUserInTXT_Click">Сохранить  в TXT</Button>
+                </StackPanel>
+            </Border>
+           
+           
+               
 
+            <Button Margin="10" 
+                    Padding="10" Click="Button_Click">Добавить в бд</Button>
         </StackPanel>
 
     </Grid>
