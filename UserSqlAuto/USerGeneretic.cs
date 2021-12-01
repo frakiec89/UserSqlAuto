@@ -54,7 +54,16 @@ namespace UserSqlAuto
                     byte[] result = new byte[length];
                     for (int index = 0; index < length; index++)
                     {
-                        result[index] = (byte)new Random().Next(100, 115);
+                        if ((int)new Random().Next(0,2)==0)
+                        {
+                        result[index] = (byte)new Random().Next(97, 122);
+                        }
+                        else
+                        {
+                        result[index] = (byte)new Random().Next(48, 58);
+                        }
+
+                     
                     }
                     return System.Text.Encoding.ASCII.GetString(result);
                 }

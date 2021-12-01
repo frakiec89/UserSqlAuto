@@ -77,6 +77,8 @@
                 <Label MinWidth="50" >Или загрузите список из txt</Label>
                 <Button Padding="5" Margin="5" x:Name="btRun" 
                         Content="загрузить" Click="btRun_Click"/>
+                <Button Padding="5" Margin="5" x:Name="btClear" 
+                        Content="Удалить" Click="btClear_Click"/>
             </StackPanel>
 
             <Button   x:Name="btGEnerator" 

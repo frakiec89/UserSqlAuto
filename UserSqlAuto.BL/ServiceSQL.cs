@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -70,7 +71,137 @@ namespace UserSqlAuto.BL
 
         public string GetSqlconectionStrint(string adress, string login, string password)
         {
-            return $"Server={adress};Database=master;User Id={login};Password={password}";
+            return $"Server={adress};Database=master;User Id={login};Password={password};Connection Timeout=2";
+        }
+
+        public string[] GetDataBases(string adress, string login, string password)
+        { 
+            // стандартные базы данных
+            List<string> defDb = new List<string> { "master" , "tempdb" , "model" , "msdb" , "Gogs"
+            };
+            List<string> list = new List<string>();
+            // Open connection to the database
+            string cs = GetSqlconectionStrint(adress, login, password);
+            try
+            {
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand("SELECT name from sys.databases", con))
+                    {
+                       
+                        using (IDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                list.Add(dr[0].ToString());
+                            }
+                        }
+                    }
+                }
+                foreach (var item in defDb)
+                {
+                    list.Remove(item);
+                }
+                return list.ToArray();
+
+            }
+            catch (System.Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+        public void RemoveDataBase(string name, string adress, string login, string password)
+        {
+            SqlConnection myConn = new SqlConnection( GetSqlconectionStrint(adress , login , password) );
+
+            var str = $@"ALTER DATABASE  [{name}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                        DROP DATABASE [{name}]";
+
+            SqlCommand myCommand = new SqlCommand(str, myConn);
+            try
+            {
+                myConn.Open();
+                myCommand.ExecuteNonQuery();
+            }
+            catch (System.Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (myConn.State == ConnectionState.Open)
+                {
+                    myConn.Close();
+                }
+            }
+        }
+
+        public string[] GetUser(string adress, string login, string password)
+        {
+            // стандартные пользователи базы данных
+            List<string> deUser = new List<string> { "Sa" ,
+            "##MS_PolicyEventProcessingLogin##",
+            "##MS_PolicyTsqlExecutionLogin##",
+            "sa",
+            "stud"
+            };
+            List<string> list = new List<string>();
+
+            // Open connection to the database
+            string cs = GetSqlconectionStrint(adress, login, password);
+            try
+            {
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(@"select * from sys.sql_logins", con))
+                    {
+
+                        using (IDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                list.Add(dr[0].ToString());
+                            }
+                        }
+                    }
+                }
+                foreach (var item in deUser)
+                {
+                    list.Remove(item);
+                }
+                return list.ToArray();
+            }
+            catch (System.Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void RemoveUser(string name, string adress, string login, string password)
+        {
+            SqlConnection myConn = new SqlConnection(GetSqlconectionStrint(adress, login, password));
+            var str = $@"DROP LOGIN [{name}]";
+            SqlCommand myCommand = new SqlCommand(str, myConn);
+            try
+            {
+                myConn.Open();
+                myCommand.ExecuteNonQuery();
+            }
+            catch (System.Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (myConn.State == ConnectionState.Open)
+                {
+                    myConn.Close();
+                }
+            }
         }
     }
 }

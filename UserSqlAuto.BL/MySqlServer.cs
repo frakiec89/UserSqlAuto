@@ -34,9 +34,29 @@ namespace UserSqlAuto.BL
            
         }
 
+        public string[] GetDataBases(string adress, string login, string password)
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetSqlconectionStrint(string adress, string login, string password)
         {
             return $"server={adress};uid={login};pwd={password}";
+        }
+
+        public string[] GetUser(string adress, string login, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveDataBase(string name, string adress, string login, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveUser(string name, string adress, string login, string password)
+        {
+            throw new NotImplementedException();
         }
     }
 }

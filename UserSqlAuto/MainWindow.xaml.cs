@@ -134,7 +134,7 @@ namespace UserSqlAuto
         {
             if (rbMS.IsChecked == true)
             {
-                tbAdress.Text = "192.168.10.134";
+                tbAdress.Text = "192.168.10.132";
                 tbLogin.Text = "stud";
                 tbPassword.Text = "stud";
             }
@@ -149,7 +149,7 @@ namespace UserSqlAuto
         {
             if(rbMySql.IsChecked==true)
             {
-                tbAdress.Text = "192.168.10.134";
+                tbAdress.Text = "192.168.10.132";
                 tbLogin.Text = "root";
                 tbPassword.Text = "Frakiec89";
             }
@@ -225,6 +225,12 @@ namespace UserSqlAuto
             {
                 throw new Exception("ошибка пути к  файлу");
             }
+        }
+
+        private void btClear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearWindows clearWindows = new ClearWindows( tbAdress.Text , tbLogin.Text , tbPassword.Text , GetSQL());
+            clearWindows.ShowDialog();
         }
     }
 }
