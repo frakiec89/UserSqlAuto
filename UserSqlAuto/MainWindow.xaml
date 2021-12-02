@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UserSqlAuto"
         mc:Ignorable="d"
         Title="Программа автоматизации создания учетных записей" 
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight" MinHeight="800">
     
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -29,7 +29,7 @@
     
     <Grid Margin="25"  >
         <StackPanel >
-            
+           
             <StackPanel Orientation="Horizontal">
                 <Label >Укажите адрес сервера</Label>
                 <TextBox x:Name="tbAdress"></TextBox>
@@ -76,12 +76,12 @@
                
                 <Label MinWidth="50" >Или загрузите список из txt</Label>
                 <Button Padding="5" Margin="5" x:Name="btRun" 
-                        Content="загрузить" Click="btRun_Click"/>
+                        Content="загрузить из списка" Click="btRun_Click"/>
                 <Button Padding="5" Margin="5" x:Name="btClear" 
-                        Content="Удалить" Click="btClear_Click"/>
+                        Content="Удалить объекты  из БД" Click="btClear_Click"/>
             </StackPanel>
 
-            <Button   x:Name="btGEnerator" 
+            <Button  HorizontalAlignment="Center"  x:Name="btGEnerator" 
                     Margin="10" Padding="10"
                     Click="btGEnerator_Click">Генерировать</Button>
 
@@ -103,13 +103,26 @@
                         x:Name="btSaveUserInTXT" Click="btSaveUserInTXT_Click">Сохранить  в TXT</Button>
                 </StackPanel>
             </Border>
-           
-           
-               
+                    <Button Margin="10" 
+                    Padding="10" HorizontalAlignment="Center" Click="Button_Click">Добавить в бд</Button>
 
-            <Button Margin="10" 
-                    Padding="10" Click="Button_Click">Добавить в бд</Button>
+            <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel>
+                    <Label HorizontalAlignment="Center"  HorizontalContentAlignment="Center" Margin="5">Gogs</Label>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label >Укажите url сервера</Label>
+                            <TextBox x:Name="tbURl"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button  HorizontalAlignment="Center"  x:Name="btGogsAdd" Padding="5"  Click="btGogsAdd_Click" 
+                             Margin="5">Добавить учётки в Gogs</Button>
+                    
+                    
+                    
+                </StackPanel>
+            </Border>
         </StackPanel>
-
+    
     </Grid>
 </Window>

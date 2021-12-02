@@ -22,12 +22,11 @@ namespace UserSqlAuto
         public static List<User> GetUsers(string filePath , int countSimbolPassword)
         {
             List<User> users = new List<User>();
-
             List<String> lineList = new List<string>();
-
+            StreamReader sr = null;
             try
             {
-                StreamReader sr = new StreamReader(filePath);
+                sr = new StreamReader(filePath);
                 string line = sr.ReadLine();
                 while ( string.IsNullOrEmpty(line)==false)
                 {
@@ -40,11 +39,16 @@ namespace UserSqlAuto
             {
                 throw new Exception("Exception: " + e.Message);
             }
+            finally
+            {
+                sr.Close();
+            }
 
-            foreach (var item  in  lineList )
+            foreach (var item  in  lineList.Distinct().ToList() )
             {
                 users.Add(new User() { Name = item , Password = Random(countSimbolPassword) });
             }
+
             return users;
         }
         public static string Random(int length)
@@ -62,7 +66,6 @@ namespace UserSqlAuto
                         {
                         result[index] = (byte)new Random().Next(48, 58);
                         }
-
                      
                     }
                     return System.Text.Encoding.ASCII.GetString(result);

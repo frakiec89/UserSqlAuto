@@ -28,6 +28,7 @@ namespace UserSqlAuto
             rbMS.IsChecked = true;
             cbCount.ItemsSource = RunCB(30);
             slValue.Value = 4;
+            tbURl.Text = $"http://{tbAdress.Text}:{3000}";
         }
 
         private ISQL GetSQL()
@@ -80,7 +81,6 @@ namespace UserSqlAuto
             }
         }
 
-
         private void AddUserDB(User user)
         {
             string conectionStrint = _iSQL.GetSqlconectionStrint(tbAdress.Text, tbLogin.Text, tbPassword.Text);
@@ -116,6 +116,9 @@ namespace UserSqlAuto
 
         private void btRun_Click(object sender, RoutedEventArgs e)
         {
+            MessageWindows messogeWindows = new MessageWindows();
+            messogeWindows.ShowDialog();
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             if (openFileDialog.ShowDialog() == true)
@@ -126,7 +129,7 @@ namespace UserSqlAuto
         }
 
         /// <summary>
-        /// Для шаблоного вывода  на  экран
+        /// Для шаблонного вывода  на  экран
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -231,6 +234,28 @@ namespace UserSqlAuto
         {
             ClearWindows clearWindows = new ClearWindows( tbAdress.Text , tbLogin.Text , tbPassword.Text , GetSQL());
             clearWindows.ShowDialog();
+        }
+
+        private void btGogsAdd_Click(object sender, RoutedEventArgs e)
+        {
+            BL.IGogs _iGogs = new BL.GogsServer();// todo зависимость
+          
+            try
+            {
+                if (users.Count > 0)
+                {
+                    foreach (var item in users)
+                    {
+                        _iGogs.AddUser(item.Name, item.Password, tbURl.Text);
+                    }
+                    MessageBox.Show("Операция закончена");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
         }
     }
 }
