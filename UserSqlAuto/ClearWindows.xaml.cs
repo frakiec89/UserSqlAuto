@@ -39,7 +39,7 @@ namespace UserSqlAuto
         private void ClearWindows_Loaded(object sender, RoutedEventArgs e)
         {
             dtContent.ItemsSource = GetContentDB();
-           dtContentUser.ItemsSource = GetContentUser();
+            dtContentUser.ItemsSource = GetContentUser();
         }
 
         private List<UserModel> GetContentUser()
@@ -86,7 +86,7 @@ namespace UserSqlAuto
         {
             List<DataBaseModel> dataBaseModels = dtContent.ItemsSource as List<DataBaseModel>;
             dataBaseModels = dataBaseModels.Where(x => x.IsClear.ToLower() == "true").ToList();
-            ISQL sQL = new BL.ServiceSQL(); // todo зависимость
+            ISQL sQL = _sql; 
             try
             {
                 foreach (var item in dataBaseModels)

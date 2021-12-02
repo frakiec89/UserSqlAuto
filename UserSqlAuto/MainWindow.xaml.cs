@@ -32,7 +32,7 @@ namespace UserSqlAuto
 
         private ISQL GetSQL()
         {
-            if (rbMS.IsChecked==true && rbMySql.IsChecked==false)
+            if (rbMS.IsChecked==true && rbMySql.IsChecked==false) // todo   плохая конструкция 
             {
                 return new UserSqlAuto.BL.ServiceSQL(); // todo Зависимость
             }

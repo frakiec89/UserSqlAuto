@@ -78,7 +78,8 @@ namespace UserSqlAuto.BL
         { 
             // стандартные базы данных
             List<string> defDb = new List<string> { "master" , "tempdb" , "model" , "msdb" , "Gogs"
-            };
+            }; // todo списки исключений
+
             List<string> list = new List<string>();
             // Open connection to the database
             string cs = GetSqlconectionStrint(adress, login, password);
@@ -147,7 +148,7 @@ namespace UserSqlAuto.BL
             "##MS_PolicyTsqlExecutionLogin##",
             "sa",
             "stud"
-            };
+            }; // todo списки исключений
             List<string> list = new List<string>();
 
             // Open connection to the database
